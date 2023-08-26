@@ -1,0 +1,38 @@
+# Visual Studio / Rider
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln.iml
+*.sln.DotSettings
+
+# Compiled binary files
+bin/
+obj/
+*.dll
+*.exe
+
+# NuGet
+*.nuget.props
+*.nuget.targets
+
+# User-specific files
+*.userprefs
+*.usertasks
+*.userrules
+
+# Visual Studio Code
+.vscode/
+.vscode/
+
+# macOS
+.DS_Store
+
+# Resharper
+_resharper/
+
+# Rider
+.idea/
+*.sln.iml
+*.sln.DotSettings
