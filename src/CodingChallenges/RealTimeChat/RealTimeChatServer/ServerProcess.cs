@@ -15,14 +15,14 @@ namespace RealTimeChatServer
         private readonly ILogger<ServerProcess> _logger;
         private readonly List<TcpClient> _clients = new List<TcpClient>();
 
-        public ServerProcess(ILogger<ServerProcess> logger, string address = "127.0.0.1", int port = 7007)
+        public ServerProcess(ILogger<ServerProcess> logger, string address = "0.0.0.0", int port = 7007)
         {
             var localAddr = IPAddress.Parse(address);
             _server = new TcpListener(localAddr, port);
             _logger = logger;
         }
 
-        public async Task RunServer()
+        public async Task RunServer(CancellationToken cancellationToken)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace RealTimeChatServer
                 _logger.LogInformation($"Server started on: {_server.LocalEndpoint}");
                 await Task.Run(async () =>
                 {
-                    while (true)
+                    while (!cancellationToken.IsCancellationRequested)
                     {
                         if (_server.Pending())
                         {
@@ -49,6 +49,7 @@ namespace RealTimeChatServer
             finally
             {
                 _server.Stop();
+                _logger.LogInformation($"Server stopped.");
             }
         }
 
