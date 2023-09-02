@@ -46,12 +46,13 @@ namespace NATSParser
         {
             switch (command.CommandName)
             {
+                case "": return new PingCommand();
                 case NATSCommands.CONNECT: return new ConnectCommand();
                 case NATSCommands.PONG: return new PongCommand();
                 case NATSCommands.PING: return new PingCommand();
                 case NATSCommands.SUB: return new SubCommand(command.Paramaters);
                 case NATSCommands.PUB: return new PubCommand(command.Paramaters);
-                default: throw new NotSupportedException($"{command} is not supported NATS command");
+                default: throw new NotSupportedException($"{command.CommandName} is not supported NATS command");
             }
         }
     }

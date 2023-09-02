@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace NATSParser.Commands
 {
-    public class PongCommand : INATSCommand
+    public record OkCommand
     {
         public override string ToString()
         {
-            return "PONG\r\n";
+            return "+OK\r\n";
         }
     }
 }

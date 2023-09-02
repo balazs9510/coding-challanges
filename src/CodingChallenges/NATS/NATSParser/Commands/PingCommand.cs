@@ -8,5 +8,9 @@ namespace NATSParser.Commands
 {
     public class PingCommand : INATSCommand
     {
+        public override string ToString()
+        {
+            return "PING\r\n";
+        }
     }
 }

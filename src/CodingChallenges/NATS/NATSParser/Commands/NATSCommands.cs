@@ -13,5 +13,6 @@ namespace NATSParser.Commands
         public const string PONG = nameof(PONG);
         public const string SUB = nameof(SUB);
         public const string PUB = nameof(PUB);
+
     }
 }

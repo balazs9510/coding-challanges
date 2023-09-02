@@ -6,7 +6,5 @@ using System.Threading.Tasks;
 
 namespace NATSParser
 {
-    public interface INATSCommand
-    {
-    }
+    public interface INATSCommand { }
 }
