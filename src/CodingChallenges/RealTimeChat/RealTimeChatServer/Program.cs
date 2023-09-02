@@ -4,7 +4,7 @@ var server = new ServerProcess(new ConsoleLogger<ServerProcess>());
 var tokenSrc = new CancellationTokenSource();
 var cancellationToken = tokenSrc.Token;
 var serverTask = server.RunServer(cancellationToken);
-string input = Console.ReadLine();
+string? input = Console.ReadLine();
 while(input != null)
 {
     if (string.Equals(input, "exit", StringComparison.OrdinalIgnoreCase))

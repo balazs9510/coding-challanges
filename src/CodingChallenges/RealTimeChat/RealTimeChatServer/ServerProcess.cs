@@ -60,22 +60,18 @@ namespace RealTimeChatServer
                 var stream = client.GetStream();
                 if (stream.DataAvailable)
                 {
-                    byte[] buffer = new byte[client.ReceiveBufferSize];
-                    var read = await stream.ReadAsync(buffer, 0, buffer.Length);
-                    if (read > 0)
-                    {
-                        string data = Encoding.UTF8.GetString(buffer, 0, buffer.Length);
-                        Console.WriteLine($"Received from {client.Client.RemoteEndPoint}: {data}");
-                        // Process the received data and prepare a response
-                        byte[] responseBytes = Encoding.UTF8.GetBytes(data);
+                    var message = await stream.ReadStringAsync();
 
-                        // Send the response to all connected clients
-                        foreach (TcpClient otherClient in _clients)
+                    Console.WriteLine($"Received from {client.Client.RemoteEndPoint}: {message}");
+                    // Process the received data and prepare a response
+                    byte[] responseBytes = Encoding.UTF8.GetBytes(message);
+
+                    // Send the response to all connected clients
+                    foreach (TcpClient otherClient in _clients)
+                    {
+                        if (/*otherClient != client &&*/ otherClient.Connected)
                         {
-                            if (/*otherClient != client &&*/ otherClient.Connected)
-                            {
-                                await otherClient.GetStream().WriteAsync(responseBytes, 0, responseBytes.Length);
-                            }
+                            await otherClient.GetStream().WriteAsync(responseBytes, 0, responseBytes.Length);
                         }
                     }
                 }
