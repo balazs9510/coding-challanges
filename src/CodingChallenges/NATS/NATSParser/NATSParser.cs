@@ -23,13 +23,16 @@ namespace NATSParser
             var i = 0;
             var command = new CommandBase();
             var sb = new StringBuilder();
-            while (commandString[i] != ' ')
+            while (i < commandString.Length && commandString[i] != ' ')
             {
                 sb.Append(commandString[i]);
                 i++;
             }
             command.CommandName = sb.ToString();
-            command.Paramaters = commandString.Substring(i + 1, commandString.Length - i - 1);
+            if (i < commandString.Length)
+            {
+                command.Paramaters = commandString.Substring(i + 1, commandString.Length - i - 1);
+            }
             return command;
         }
 

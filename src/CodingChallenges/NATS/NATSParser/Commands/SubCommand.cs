@@ -18,7 +18,7 @@ namespace NATSParser.Commands
             if (split.Length < 2)
                 throw new ArgumentException($"SUB command has at least 2 required paramters");
             Subject = split[0];
-            if (split.Length > 3)
+            if (split.Length > 2)
             {
                 QueueGroup = split[1];
                 SId = split[2].TrimEnd();

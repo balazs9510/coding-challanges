@@ -54,6 +54,23 @@ namespace NATSParser.Tests
         }
 
         [Fact]
+        public void CanParseFullSubCommand()
+        {
+            // Arrange
+            var commandString = "SUB FOO QueueG 1\r\n";
+
+            // Act
+            var command = NATSParser.Parse(commandString);
+
+            // Assert
+            Assert.True(command is SubCommand);
+            var subCommand = command as SubCommand;
+            Assert.Equal("FOO", subCommand.Subject);
+            Assert.Equal("QueueG", subCommand.QueueGroup);
+            Assert.Equal("1", subCommand.SId);
+        }
+
+        [Fact]
         public void CanParsePubCommand()
         {
             // Arrange
@@ -66,6 +83,24 @@ namespace NATSParser.Tests
             Assert.True(command is PubCommand);
             var pubCommand = command as PubCommand;
             Assert.Equal("CodingChallenge", pubCommand.Subject);
+            Assert.Equal(11, pubCommand.Bytes);
+            Assert.Equal("Hello John!", pubCommand.Payload);
+        }
+
+        [Fact]
+        public void CanParseFullPubCommand()
+        {
+            // Arrange
+            var commandString = "PUB CodingChallenge ReplyChannel 11\r\nHello John!\r\n";
+
+            // Act
+            var command = NATSParser.Parse(commandString);
+
+            // Assert
+            Assert.True(command is PubCommand);
+            var pubCommand = command as PubCommand;
+            Assert.Equal("CodingChallenge", pubCommand.Subject);
+            Assert.Equal("ReplyChannel", pubCommand.ReplyTo);
             Assert.Equal(11, pubCommand.Bytes);
             Assert.Equal("Hello John!", pubCommand.Payload);
         }
